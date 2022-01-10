@@ -9,9 +9,10 @@ import { CpfModule } from './cpf/cpf.module';
     CpfModule,
     TypeOrmModule.forRoot({
       type: 'sqlite',
-      database: 'db.sqlite',
-      entities: [],
+      database: 'db.sqlite3',
+      autoLoadEntities: true,
       logging: true,
+      synchronize: true,
     }),
   ],
   controllers: [AppController],
