@@ -3,6 +3,8 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { CpfModule } from './cpf/cpf.module';
+import { StatusService } from './status/status.service';
+import { StatusModule } from './status/status.module';
 
 @Module({
   imports: [
@@ -14,8 +16,9 @@ import { CpfModule } from './cpf/cpf.module';
       logging: true,
       synchronize: true,
     }),
+    StatusModule,
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [AppService, StatusService],
 })
 export class AppModule {}
