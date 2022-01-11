@@ -4,6 +4,7 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { LoggerService } from 'src/logger/logger.service';
 import { Repository } from 'typeorm';
 import { AddCpfDto } from './dtos/add-cpf.dto';
 import { FindCpfDto } from './dtos/find-cpf.dto';
@@ -15,6 +16,7 @@ export class CpfService {
   constructor(
     @InjectRepository(BlackList)
     private blackListRepository: Repository<BlackList>,
+    private loggerService: LoggerService,
   ) {}
 
   async add(addCpfDto: AddCpfDto) {
@@ -45,5 +47,13 @@ export class CpfService {
     });
 
     return { message: isOnTheBlackList ? 'BLOCK' : 'FREE' };
+  }
+
+  async status() {
+    const count = await this.blackListRepository.count();
+
+    const requestCount = this.loggerService.getRequestCount();
+
+    return { uptime: new Date(), count, requestCount };
   }
 }
