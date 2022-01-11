@@ -4,18 +4,18 @@ import {
   NotFoundException,
 } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { LoggerService } from 'src/logger/logger.service';
+import { LoggerService } from '../logger/logger.service';
 import { Repository } from 'typeorm';
 import { AddCpfDto } from './dtos/add-cpf.dto';
 import { FindCpfDto } from './dtos/find-cpf.dto';
 import { RemoveCpfDto } from './dtos/remove-cpf.dto';
-import { BlackList } from './entities/black-list.entity';
+import { Blacklist } from './entities/blacklist.entity';
 
 @Injectable()
 export class CpfService {
   constructor(
-    @InjectRepository(BlackList)
-    private blackListRepository: Repository<BlackList>,
+    @InjectRepository(Blacklist)
+    private blacklistRepository: Repository<Blacklist>,
     private loggerService: LoggerService,
   ) {}
 
@@ -26,37 +26,37 @@ export class CpfService {
   async add(addCpfDto: AddCpfDto) {
     const cpf = this.removeMask(addCpfDto.cpf);
 
-    const hasInDb = await this.blackListRepository.findOne({ cpf });
+    const hasInDb = await this.blacklistRepository.findOne({ cpf });
 
     if (hasInDb) {
       throw new BadRequestException('CPF já cadastrado.');
     }
 
-    return this.blackListRepository.save({ cpf: addCpfDto.cpf });
+    return this.blacklistRepository.save({ cpf: addCpfDto.cpf });
   }
 
   async remove(removeCpfDto: RemoveCpfDto) {
     const cpf = this.removeMask(removeCpfDto.cpf);
 
-    const hasInDb = await this.blackListRepository.findOne({ cpf });
+    const hasInDb = await this.blacklistRepository.findOne({ cpf });
 
     if (!hasInDb) {
       throw new NotFoundException('CPF não encontrado.');
     }
 
-    await this.blackListRepository.delete({ cpf });
+    await this.blacklistRepository.delete({ cpf });
   }
 
   async findOne(findCpfDto: FindCpfDto) {
     const cpf = this.removeMask(findCpfDto.cpf);
 
-    const isOnTheBlackList = await this.blackListRepository.findOne({ cpf });
+    const isOnTheBlackList = await this.blacklistRepository.findOne({ cpf });
 
     return { message: isOnTheBlackList ? 'BLOCK' : 'FREE' };
   }
 
   async status() {
-    const count = await this.blackListRepository.count();
+    const count = await this.blacklistRepository.count();
 
     const requestCount = this.loggerService.getRequestCount();
 
