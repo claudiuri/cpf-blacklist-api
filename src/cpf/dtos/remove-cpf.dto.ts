@@ -1,6 +1,6 @@
 import { IsCPF } from 'brazilian-class-validator';
 
-export class AddCpfDto {
+export class RemoveCpfDto {
   @IsCPF({ message: 'CPF inválido.' })
   cpf!: string;
 }

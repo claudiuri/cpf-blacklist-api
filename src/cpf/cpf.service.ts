@@ -7,6 +7,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { AddCpfDto } from './dtos/add-cpf.dto';
 import { FindCpfDto } from './dtos/find-cpf.dto';
+import { RemoveCpfDto } from './dtos/remove-cpf.dto';
 import { BlackList } from './entities/black-list.entity';
 
 @Injectable()
@@ -28,14 +29,14 @@ export class CpfService {
     return this.blackListRepository.save({ cpf: addCpfDto.cpf });
   }
 
-  async remove(cpf: string) {
-    const hasInDb = await this.blackListRepository.findOne({ cpf });
+  async remove(removeCpfDto: RemoveCpfDto) {
+    const hasInDb = await this.blackListRepository.findOne({ ...removeCpfDto });
 
     if (!hasInDb) {
       throw new NotFoundException('CPF não encontrado.');
     }
 
-    await this.blackListRepository.delete({ cpf });
+    await this.blackListRepository.delete({ ...removeCpfDto });
   }
 
   async findOne(findCpfDto: FindCpfDto) {
