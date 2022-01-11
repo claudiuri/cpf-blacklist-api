@@ -15,4 +15,21 @@ describe('LoggerService', () => {
   it('should be defined', () => {
     expect(service).toBeDefined();
   });
+
+  describe('sum', () => {
+    it('should amount request count', () => {
+      service.sum();
+      service.sum();
+
+      expect(service.getRequestCount()).toBe(2);
+    });
+  });
+
+  describe('getRequestCount', () => {
+    it('should amount request count', () => {
+      service.sum();
+
+      expect(service.getRequestCount()).toBe(1);
+    });
+  });
 });
