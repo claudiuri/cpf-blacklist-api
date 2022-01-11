@@ -9,10 +9,10 @@ import { LoggerMiddleware } from 'src/common/middlewares/logger.middleware';
 import { LoggerModule } from 'src/logger/logger.module';
 import { CpfController } from './cpf.controller';
 import { CpfService } from './cpf.service';
-import { BlackList } from './entities/black-list.entity';
+import { Blacklist } from './entities/blacklist.entity';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([BlackList]), LoggerModule],
+  imports: [TypeOrmModule.forFeature([Blacklist]), LoggerModule],
   controllers: [CpfController],
   providers: [CpfService],
 })

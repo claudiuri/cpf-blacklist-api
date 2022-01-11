@@ -4,12 +4,12 @@ import { getRepositoryToken } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { LoggerService } from '../logger/logger.service';
 import { CpfService } from './cpf.service';
-import { BlackList } from './entities/black-list.entity';
+import { Blacklist } from './entities/blacklist.entity';
 
 describe('CpfService', () => {
   let cpfService: CpfService;
   let loggerService: LoggerService;
-  let blackListRepository: Repository<BlackList>;
+  let blackListRepository: Repository<Blacklist>;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
@@ -20,7 +20,7 @@ describe('CpfService', () => {
           useValue: { getRequestCount: jest.fn(), sum: jest.fn() },
         },
         {
-          provide: getRepositoryToken(BlackList),
+          provide: getRepositoryToken(Blacklist),
           useValue: {
             findOne: jest.fn(),
             count: jest.fn(),
@@ -33,7 +33,7 @@ describe('CpfService', () => {
 
     cpfService = module.get<CpfService>(CpfService);
     loggerService = module.get<LoggerService>(LoggerService);
-    blackListRepository = module.get(getRepositoryToken(BlackList));
+    blackListRepository = module.get(getRepositoryToken(Blacklist));
   });
 
   it('should be defined', () => {
