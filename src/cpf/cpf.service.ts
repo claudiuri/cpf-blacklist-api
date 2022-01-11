@@ -19,10 +19,14 @@ export class CpfService {
     private loggerService: LoggerService,
   ) {}
 
+  removeMask(cpf: string) {
+    return cpf.replace(/\D/g, '');
+  }
+
   async add(addCpfDto: AddCpfDto) {
-    const hasInDb = await this.blackListRepository.findOne({
-      cpf: addCpfDto.cpf,
-    });
+    const cpf = this.removeMask(addCpfDto.cpf);
+
+    const hasInDb = await this.blackListRepository.findOne({ cpf });
 
     if (hasInDb) {
       throw new BadRequestException('CPF já cadastrado.');
@@ -32,19 +36,21 @@ export class CpfService {
   }
 
   async remove(removeCpfDto: RemoveCpfDto) {
-    const hasInDb = await this.blackListRepository.findOne({ ...removeCpfDto });
+    const cpf = this.removeMask(removeCpfDto.cpf);
+
+    const hasInDb = await this.blackListRepository.findOne({ cpf });
 
     if (!hasInDb) {
       throw new NotFoundException('CPF não encontrado.');
     }
 
-    await this.blackListRepository.delete({ ...removeCpfDto });
+    await this.blackListRepository.delete({ cpf });
   }
 
   async findOne(findCpfDto: FindCpfDto) {
-    const isOnTheBlackList = await this.blackListRepository.findOne({
-      ...findCpfDto,
-    });
+    const cpf = this.removeMask(findCpfDto.cpf);
+
+    const isOnTheBlackList = await this.blackListRepository.findOne({ cpf });
 
     return { message: isOnTheBlackList ? 'BLOCK' : 'FREE' };
   }
