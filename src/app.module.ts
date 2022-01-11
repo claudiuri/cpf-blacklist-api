@@ -12,7 +12,6 @@ import { LoggerModule } from './logger/logger.module';
       type: 'sqlite',
       database: 'db.sqlite3',
       autoLoadEntities: true,
-      logging: true,
       synchronize: true,
     }),
     LoggerModule,
