@@ -6,7 +6,7 @@ import {
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { AddCpfDto } from './dtos/add-cpf.dto';
-import { RemoveCpfDto } from './dtos/remove-cpf.dto';
+import { FindCpfDto } from './dtos/find-cpf.dto';
 import { BlackList } from './entities/black-list.entity';
 
 @Injectable()
@@ -36,5 +36,13 @@ export class CpfService {
     }
 
     await this.blackListRepository.delete({ cpf });
+  }
+
+  async findOne(findCpfDto: FindCpfDto) {
+    const isOnTheBlackList = await this.blackListRepository.findOne({
+      ...findCpfDto,
+    });
+
+    return { message: isOnTheBlackList ? 'BLOCK' : 'FREE' };
   }
 }

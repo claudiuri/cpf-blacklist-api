@@ -1,7 +1,8 @@
-import { Body, Controller, Delete, Param, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post } from '@nestjs/common';
 import { IsCPF } from 'brazilian-class-validator';
 import { CpfService } from './cpf.service';
 import { AddCpfDto } from './dtos/add-cpf.dto';
+import { FindCpfDto } from './dtos/find-cpf.dto';
 
 @Controller('cpf')
 export class CpfController {
@@ -15,5 +16,10 @@ export class CpfController {
   @Delete(':cpf')
   remove(@Param('cpf') cpf: string) {
     return this.cpfService.remove(cpf);
+  }
+
+  @Get(':cpf')
+  findOne(@Param() params: FindCpfDto) {
+    return this.cpfService.findOne(params);
   }
 }
