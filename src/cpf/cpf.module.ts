@@ -5,8 +5,8 @@ import {
   RequestMethod,
 } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { LoggerMiddleware } from 'src/common/middlewares/logger.middleware';
-import { LoggerModule } from 'src/logger/logger.module';
+import { LoggerMiddleware } from '../logger/logger.middleware';
+import { LoggerModule } from '../logger/logger.module';
 import { CpfController } from './cpf.controller';
 import { CpfService } from './cpf.service';
 import { Blacklist } from './entities/blacklist.entity';
