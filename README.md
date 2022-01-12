@@ -35,6 +35,23 @@ $ npm run test:cov
 Ao rotar os teste `e2e` será criando um banco de teste chamdo `db_teste.sqlite3`
 
 ## Swagger/PlayGround 
+Para acessar o swagger é necessario rodar  a api
+```bash
+$ npm run start
+```
+Após rodar acesse a rota `/swagger`
+
+Exemplo: `http://localhost:3000/swagger`
+
+## Docker 
+
+```bash
+# criação da imagem
+$ docker build -t cpf-blacklist-api .
+
+# rodando a imagem criada
+$ docker run -d -p 3000:3000 -e PORT=3000 cpf-blacklist-api 
+```
 
 ## Bibliotecas 📚
 
