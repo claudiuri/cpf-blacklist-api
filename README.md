@@ -50,8 +50,14 @@ Exemplo: `http://localhost:3000/swagger`
 $ docker build -t cpf-blacklist-api .
 
 # rodando a imagem criada
-$ docker run -d -p 3000:3000 -e PORT=3000 cpf-blacklist-api 
+$ docker run -d -p 3000:3000 -e PORT=3000 cpf-blacklist-api
 ```
+
+## A aplicação
+
+A api está dividida em dois módulos `cpf` e `logger`. No módulo `cpf` possui o controller onde recebe as requisições que é processado pelo seriviço. No módulo `logger` middleware que faz a contagem de consultas que foram feitas.
+
+![Diagram](/api-diagram.jpg)
 
 ## Bibliotecas 📚
 
