@@ -19,6 +19,8 @@ $ npm run start:dev
 $ npm run start:prod
 ```
 
+Após executar um desses comandos a aplicação estará rodando em `http://localhost:3000/`
+
 ## Rodando testes 🎮 
 
 ```bash
