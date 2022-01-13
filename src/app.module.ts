@@ -1,5 +1,4 @@
 import { Module } from '@nestjs/common';
-import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
@@ -10,7 +9,6 @@ import { LoggerModule } from './logger/logger.module';
   imports: [
     CpfModule,
     LoggerModule,
-    ConfigModule.forRoot(),
     TypeOrmModule.forRoot({
       type: 'sqlite',
       database: 'db.sqlite3',
