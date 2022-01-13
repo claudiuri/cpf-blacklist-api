@@ -19,17 +19,13 @@ function buildSwaggerDoc(app: INestApplication) {
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
-  const configService = app.get(ConfigService);
-
-  const PORT = parseInt(configService.get('PORT')!) ?? 3000;
-
   app.useGlobalPipes(new ValidationPipe());
 
   buildSwaggerDoc(app);
 
-  await app.listen(PORT);
+  await app.listen(3000);
 
-  console.log(`App listening to port :${PORT}`);
+  console.log(`App listening to port :${3000}`);
   console.log(`App running on: ${await app.getUrl()}`);
 }
 bootstrap();

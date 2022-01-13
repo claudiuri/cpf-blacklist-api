@@ -10,5 +10,5 @@ FROM node:14-alpine
 WORKDIR /ff-volume/app
 RUN npm i -g typescript ts-node
 COPY --from=builder /app ./
-EXPOSE ${PORT}
+EXPOSE 3000
 CMD ["npm","run", "start:prod"]
