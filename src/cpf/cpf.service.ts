@@ -60,6 +60,6 @@ export class CpfService {
 
     const requestCount = this.loggerService.getRequestCount();
 
-    return { uptime: new Date(), count, requestCount };
+    return { uptime: process.uptime(), count, requestCount };
   }
 }
