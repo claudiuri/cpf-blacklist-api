@@ -52,7 +52,7 @@ Exemplo: `http://localhost:3000/swagger`
 $ docker build -t cpf-blacklist-api .
 
 # rodando a imagem criada
-$ docker run -d -p 3000:3000 -e PORT=3000 cpf-blacklist-api
+$ docker run -d -p 3000:3000 cpf-blacklist-api
 ```
 
 ## A aplicação
