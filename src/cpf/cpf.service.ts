@@ -55,11 +55,25 @@ export class CpfService {
     return { message: isOnTheBlackList ? 'BLOCK' : 'FREE' };
   }
 
+  private getStringTime(time: number) {
+    return (time < 10 ? '0' : '') + time;
+  }
+
+  private formatUptime(uptime: number) {
+    const uptimeInSeconds = Math.floor(uptime % 60);
+    const uptimeInMinutes = Math.floor((uptime % (60 * 60)) / 60);
+    const uptimeInHours = Math.floor(uptime / (60 * 60));
+
+    return `${this.getStringTime(uptimeInHours)}h ${this.getStringTime(
+      uptimeInMinutes,
+    )}m ${this.getStringTime(uptimeInSeconds)}s`;
+  }
+
   async status() {
     const count = await this.blacklistRepository.count();
 
     const requestCount = this.loggerService.getRequestCount();
 
-    return { uptime: process.uptime(), count, requestCount };
+    return { uptime: this.formatUptime(process.uptime()), count, requestCount };
   }
 }
